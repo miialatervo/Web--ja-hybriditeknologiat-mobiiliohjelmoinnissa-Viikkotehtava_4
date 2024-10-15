@@ -1,30 +1,29 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const TaskItem = ({ task, onPress }) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={styles.task}>
-      <Text style={task.done ? styles.taskDone : styles.taskText}>
+const TaskItem = ({ task, onPress }) => {
+  if (!task) return null; // Prevents error if task is undefined
+
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Text style={[styles.taskText, task.done && styles.taskTextDone]}>
         {task.text}
       </Text>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};
 
 export default TaskItem;
 
 const styles = StyleSheet.create({
-  task: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
   taskText: {
     fontSize: 18,
+    padding: 10,
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
   },
-  taskDone: {
-    fontSize: 18,
-    textDecorationLine: 'line-through',
-    color: 'gray',
+  taskTextDone: {
+    textDecorationLine: 'line-through', // Strikethrough for completed tasks
+    color: 'gray', // Change color to indicate completion
   },
 });
